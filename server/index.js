@@ -17,7 +17,24 @@ app.get('/api/weather', async (req, res) => {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     );
-    res.json(response.data);
+    const weatherData = response.data;
+    const temperature = weatherData.main.temp;
+    const description = weatherData.weather[0].description;
+
+    // Ruaje kërkimin në databazë
+    connection.query(
+      'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
+      [city, temperature, description],
+      (err) => {
+        if (err) {
+          console.error('Gabim gjatë ruajtjes në DB:', err);
+        } else {
+          console.log('Kërkimi u ruajt me sukses në databazë.');
+        }
+      }
+    );
+
+    res.json(weatherData);
   } catch (error) {
     res.status(500).json({ message: 'Gabim gjatë marrjes së të dhënave të motit.' });
   }
