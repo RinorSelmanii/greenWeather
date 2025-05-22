@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('Gabim gjatë lidhjes me MySQL:', err);
+    console.error('Gabim gjat lidhjes me MySQL:', err);
     return;
   }
   console.log('Lidhja me MySQL u realizua me sukses.');
