@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const connection = require('./db'); // saktë
+const connection = require('./db'); 
 require('dotenv').config();
 
 const app = express();
@@ -14,8 +14,8 @@ app.get('/api/weather', async (req, res) => {
   const { city } = req.query;
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
-  console.log('API KEY:', apiKey); // kontrollo nëse është undefined
-  console.log('City:', city); // kontrollo nëse vjen nga frontend
+  console.log('API KEY:', apiKey); 
+  console.log('City:', city); 
 
   try {
     const response = await axios.get(
@@ -26,7 +26,7 @@ app.get('/api/weather', async (req, res) => {
     const temperature = weatherData.main.temp;
     const description = weatherData.weather[0].description;
 
-    // Ruaje në databazë
+    // Ruaj ne db
     connection.query(
       'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
       [city, temperature, description],
@@ -41,7 +41,7 @@ app.get('/api/weather', async (req, res) => {
 
     res.json(weatherData);
   } catch (error) {
-    console.error('Gabim në kërkesën API:', error.message); // shto për debug
+    console.error('Gabim në kërkesën API:', error.message); 
     res.status(500).json({ message: 'Gabim gjatë marrjes së të dhënave të motit.' });
   }
 });
