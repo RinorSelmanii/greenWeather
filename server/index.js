@@ -32,18 +32,18 @@ app.get('/api/weather', async (req, res) => {
       [city, temperature, description],
       (err) => {
         if (err) {
-          console.error('Gabim gjatë ruajtjes në DB:', err);
+          console.error('Gabim gjat ruajtjes ne DB:', err);
         } else {
-          console.log('Kërkimi u ruajt me sukses në databazë.');
+          console.log('Kerkimi u ruajt me sukses ne databaz.');
         }
       }
     );
 
     res.json(weatherData);
   } catch (error) {
-    console.error('Gabim në kërkesën API:', error.message); 
-    res.status(500).json({ message: 'Gabim gjatë marrjes së të dhënave të motit.' });
+    console.error('Gabim ne kerkesen API:', error.message); 
+    res.status(500).json({ message: 'Gabim gjat marrjes se te dhenave te motit.' });
   }
 });
 
-app.listen(PORT, () => console.log(`Serveri po punon në portin ${PORT}`));
+app.listen(PORT, () => console.log(`Serveri po punon ne portin ${PORT}`));
