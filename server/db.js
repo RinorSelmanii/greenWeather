@@ -12,7 +12,7 @@ connection.connect((err) => {
     console.error('Gabim gjatë lidhjes me MySQL:', err);
     return;
   }
-  console.log('Lidhja me MySQL u bë me sukses!');
+  console.log('Lidhja me MySQL u realizua me sukses.');
 });
 
 module.exports = connection;
