@@ -12,7 +12,7 @@ function App() {
       const res = await axios.get(`http://localhost:5000/api/weather?city=${city}`);
       setWeather(res.data);
     } catch (err) {
-      alert('Gabim në kërkimin e motit!');
+      alert('Gabim ne kerkimin e motit!');
     }
   };
 
@@ -54,7 +54,7 @@ function App() {
           style={{ padding: '0.5rem', marginRight: '1rem' }}
         />
         <button onClick={fetchWeather} style={{ padding: '0.5rem 1rem' }}>
-          Kërko Motin
+          Kerko Motin
         </button>
       </div>
 
@@ -71,8 +71,8 @@ function App() {
         >
           <h2>{weather.name}, {weather.sys.country}</h2>
           <p>Temperatura: {weather.main.temp}°C</p>
-          <p>Lagështia: {weather.main.humidity}%</p>
-          <p>Shpejtësia e erës: {weather.wind.speed} m/s</p>
+          <p>Lageshtia: {weather.main.humidity}%</p>
+          <p>Shpejtesia e eres: {weather.wind.speed} m/s</p>
         </div>
       )}
     </div>
