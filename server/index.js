@@ -17,6 +17,12 @@ app.get('/api/weather', async (req, res) => {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     );
+    
+    await db.execute(
+      'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
+      [city, response.data.main.temp, response.data.weather[0].description]
+    );
+
     const weatherData = response.data;
     const temperature = weatherData.main.temp;
     const description = weatherData.weather[0].description;
