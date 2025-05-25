@@ -49,6 +49,24 @@ app.get('/api/weather', async (req, res) => {
         );
       });
 
+     //Delete  
+    app.delete('/api/searches/:id', (req, res) => {
+     const { id } = req.params;
+
+    connection.query(
+      'DELETE FROM weather_searches WHERE id = ?',
+      [id],
+      (err, result) => {
+        if (err) {
+          console.error('Gabim gjat fshirjes:', err);
+          res.status(500).json({ message: 'Gabim gjat fshirjes.' });
+      } else {
+          res.json({ message: 'Fshirja u be me sukses.' });
+      }
+    }
+  );
+});
+
   try {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
