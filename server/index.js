@@ -17,6 +17,18 @@ app.get('/api/weather', async (req, res) => {
   console.log('API KEY:', apiKey); 
   console.log('City:', city); 
 
+    app.get('/api/searches',(req,res)=>{
+      connection.query('SELECT * FROM weather_searches',(err , results)=>{
+        if(err){
+          console.error('Gabim gjat leximit nga DataBaza',err);
+          res.status(500).json({message:'Gabim gjat leximit.'});
+        }
+        else{
+          res.json(results);
+        }
+      });
+    });
+
   try {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
