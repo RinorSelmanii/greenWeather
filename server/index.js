@@ -16,6 +16,20 @@ app.get('/api/weather', async (req, res) => {
 
   console.log('API KEY:', apiKey); 
   console.log('City:', city); 
+
+      // Ruaj ne db
+    connection.query(
+      'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
+      [city, temperature, description],
+      (err) => {
+        if (err) {
+          console.error('Gabim gjat ruajtjes ne DB:', err);
+        } else {
+          console.log('Kerkimi u ruajt me sukses ne databaz.');
+        }
+      }
+    );
+
     //reade
     app.get('/api/searches',(req,res)=>{
       connection.query('SELECT * FROM weather_searches',(err , results)=>{
@@ -76,18 +90,6 @@ app.get('/api/weather', async (req, res) => {
     const temperature = weatherData.main.temp;
     const description = weatherData.weather[0].description;
 
-    // Ruaj ne db
-    connection.query(
-      'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
-      [city, temperature, description],
-      (err) => {
-        if (err) {
-          console.error('Gabim gjat ruajtjes ne DB:', err);
-        } else {
-          console.log('Kerkimi u ruajt me sukses ne databaz.');
-        }
-      }
-    );
 
     res.json(weatherData);
   } catch (error) {
