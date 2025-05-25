@@ -16,7 +16,7 @@ app.get('/api/weather', async (req, res) => {
 
   console.log('API KEY:', apiKey); 
   console.log('City:', city); 
-
+    //reade
     app.get('/api/searches',(req,res)=>{
       connection.query('SELECT * FROM weather_searches',(err , results)=>{
         if(err){
@@ -28,6 +28,26 @@ app.get('/api/weather', async (req, res) => {
         }
       });
     });
+
+    //update
+      app.put('/api/searches/:id',(req,res)=>{
+        const{id} = req.params;
+        const {city, temperature, description} = req.body;
+
+        connection.query(
+          'UPDATE weather_searches SET city = ?, temperature = ?, description = ? WHERE id = ?',
+          [city, temperature, description, id],
+          (err, result)=>{
+            if(err){
+              console.error('Gabim gjat Update:',err);
+              res.status(500).json({message:'Gabim gjat Update.'});
+            }
+            else{
+              res.json({message:'Update u be me sukses.'});
+            }
+          }
+        );
+      });
 
   try {
     const response = await axios.get(
