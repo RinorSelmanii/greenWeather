@@ -17,6 +17,15 @@ app.get('/api/weather', async (req, res) => {
   console.log('API KEY:', apiKey); 
   console.log('City:', city); 
 
+    try {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+    );
+
+    const weatherData = response.data;
+    const temperature = weatherData.main.temp;
+    const description = weatherData.weather[0].description;
+
       // Ruaj ne db
     connection.query(
       'INSERT INTO weather_searches (city, temperature, description) VALUES (?, ?, ?)',
@@ -29,6 +38,13 @@ app.get('/api/weather', async (req, res) => {
         }
       }
     );
+    res.json(weatherData);
+  } catch (error) {
+      console.error('Gabim ne kerkesen API:', error.response?.data || error.message);
+
+      res.status(500).json({ message: 'Gabim gjat marrjes se te dhenave te motit.' });
+    }
+  });
 
     //reade
     app.get('/api/searches',(req,res)=>{
@@ -64,7 +80,7 @@ app.get('/api/weather', async (req, res) => {
       });
 
      //Delete  
-    app.delete('/api/searches/:id', (req, res) => {
+    app.delete('/apiKey/searches/:id', (req, res) => {
      const { id } = req.params;
 
     connection.query(
@@ -79,23 +95,6 @@ app.get('/api/weather', async (req, res) => {
       }
     }
   );
-});
-
-  try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-    );
-
-    const weatherData = response.data;
-    const temperature = weatherData.main.temp;
-    const description = weatherData.weather[0].description;
-
-
-    res.json(weatherData);
-  } catch (error) {
-    console.error('Gabim ne kerkesen API:', error.message); 
-    res.status(500).json({ message: 'Gabim gjat marrjes se te dhenave te motit.' });
-  }
 });
 
 app.listen(PORT, () => console.log(`Serveri po punon ne portin ${PORT}`));
