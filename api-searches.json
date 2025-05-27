@@ -1,0 +1,62 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "searches API",
+    "collectionId": "eb7a9b9b-0ad0-49d0-b392-314d2c188556",
+    "dateExported": "2025-05-27T00:32:54.683Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "df8dd56a-6ea7-45da-bafe-e969800ee263",
+            "colId": "eb7a9b9b-0ad0-49d0-b392-314d2c188556",
+            "containerId": "",
+            "name": "GET",
+            "url": "http://localhost:5000/api/searches",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-05-27T00:25:58.572Z",
+            "modified": "2025-05-27T00:25:58.572Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n \"city\": \"Monaco\",\n \"temperature\": 20.22,\n \"description\":\"cloudy\",\n \"datetime\": \"2022-09-14T14:09:23.000Z\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2531ac80-141d-4874-bfab-71b96d23f7a7",
+            "colId": "eb7a9b9b-0ad0-49d0-b392-314d2c188556",
+            "containerId": "",
+            "name": "PUT",
+            "url": "http://localhost:5000/api/searches/5",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2025-05-27T00:27:16.620Z",
+            "modified": "2025-05-27T00:27:16.620Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n \"city\": \"Monaco\",\n \"temperature\": 20.22,\n \"description\":\"cloudy\",\n \"datetime\": \"2022-09-14T14:09:23.000Z\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "84ec4d28-9726-4376-b992-6f51931867d9",
+            "colId": "eb7a9b9b-0ad0-49d0-b392-314d2c188556",
+            "containerId": "",
+            "name": "DELETE",
+            "url": "http://localhost:5000/api/searches/5",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2025-05-27T00:27:44.414Z",
+            "modified": "2025-05-27T00:27:44.414Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n \"city\": \"Monaco\",\n \"temperature\": 20.22,\n \"description\":\"cloudy\",\n \"datetime\": \"2022-09-14T14:09:23.000Z\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "zKm8ussAOEYyNN1dYdYh7f1YkKALvElatZAJp4Q1dhcDr0VgXmcFdsbcXZspARCY9LhzZKwM93bbgD7FGKl_Cg"
+}
