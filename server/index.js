@@ -80,7 +80,7 @@ app.get('/api/weather', async (req, res) => {
       });
 
      //Delete  
-    app.delete('/apiKey/searches/:id', (req, res) => {
+    app.delete('/api/searches/:id', (req, res) => {
      const { id } = req.params;
 
     connection.query(
