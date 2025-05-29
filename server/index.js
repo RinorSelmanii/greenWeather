@@ -98,4 +98,74 @@ app.get('/api/weather', async (req, res) => {
   );
 });
 
+// SIGNUP Endpoint
+app.post('/api/signup', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Kontrollo nese ekziston perdoruesi
+    connection.query(
+      'SELECT * FROM users WHERE username = ?',
+      [username],
+      async (err, results) => {
+        if (err) {
+          return res.status(500).json({ message: 'Gabim ne server.' });
+        }
+
+        if (results.length > 0) {
+          return res.status(400).json({ message: 'Perdoruesi ekziston.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        connection.query(
+          'INSERT INTO users (username, password) VALUES (?, ?)',
+          [username, hashedPassword],
+          (err) => {
+            if (err) {
+              return res.status(500).json({ message: 'Gabim gjat regjistrimit.' });
+            }
+            res.status(201).json({ message: 'Regjistrimi u krye me sukses.' });
+          }
+        );
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ message: 'Gabim ne server.' });
+  }
+});
+
+// LOGIN Endpoint
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    connection.query(
+      'SELECT * FROM users WHERE username = ?',
+      [username],
+      async (err, results) => {
+        if (err) {
+          return res.status(500).json({ message: 'Gabim ne server.' });
+        }
+
+        if (results.length === 0) {
+          return res.status(401).json({ message: 'Emri ose fjalekalimi i gabuar.' });
+        }
+
+        const user = results[0];
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+          return res.status(401).json({ message: 'Emri ose fjalekalimi i gabuar.' });
+        }
+
+        res.status(200).json({ message: 'Login i suksesshem.', username: user.username });
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ message: 'Gabim ne server.' });
+  }
+});
+
+
 app.listen(PORT, () => console.log(`Serveri po punon ne portin ${PORT}`));
