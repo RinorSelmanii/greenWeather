@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import WeatherImage from './weather.jpg';
+import LoginForm from './Login';
+import SignupForm from './SignUp';
 
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+
+  const [user, setUser] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const fetchWeather = async () => {
     try {
@@ -17,7 +23,6 @@ function App() {
   };
 
   return (
-    
     <div
       className="App"
       style={{
@@ -75,11 +80,48 @@ function App() {
           <p>Shpejtesia e eres: {weather.wind.speed} m/s</p>
         </div>
       )}
+
+      {/* Login / Signup buttons and messages */}
+      {!user && (
+        <div style={{ marginTop: '2rem' }}>
+          <button onClick={() => setShowLogin(true)} style={{ marginRight: '1rem' }}>Login</button>
+          <button onClick={() => setShowSignup(true)}>Sign Up</button>
+        </div>
+      )}
+
+      {user && (
+        <div style={{ marginTop: '2rem' }}>
+          <p>Welcome, {user}!</p>
+          <button onClick={() => setUser(null)}>Logout</button>
+        </div>
+      )}
+
+      
+      {showLogin && (
+        <div style={{ marginTop: '2rem' }}>
+          <button onClick={() => setShowLogin(false)}>Close</button>
+          <LoginForm onLoginSuccess={username => {
+            setUser(username);
+            setShowLogin(false);
+          }} />
+        </div>
+      )}
+
+      {showSignup && (
+        <div style={{ marginTop: '2rem' }}>
+          <button onClick={() => setShowSignup(false)}>Close</button>
+          <SignupForm onSignupSuccess={() => {
+            setShowSignup(false);
+            setShowLogin(true);  
+          }} />
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
+
 
 
 
